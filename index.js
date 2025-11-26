@@ -93,9 +93,9 @@ app.post("/api/products", ensureDbConnection, async (req, res) => {
     const { title, image, description, price, userEmail, meta } = req.body;
 
     // Validation
-    if (!title || !image || !description || !price) {
+    if (!title || !description || !price) {
       return res.status(400).json({
-        error: "Missing required fields: title, image, description, price",
+        error: "Missing required fields: title, description, price",
       });
     }
 
@@ -108,7 +108,8 @@ app.post("/api/products", ensureDbConnection, async (req, res) => {
     // Create product object with user email
     const newProduct = {
       title,
-      image,
+      image: image || "https://via.placeholder.com/600",
+
       description,
       price: parseFloat(price),
       userEmail,
